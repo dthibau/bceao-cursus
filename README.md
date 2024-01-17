@@ -1,31 +1,34 @@
 # bceao-cursus
 
-Application accédée par les établisements bancaires et le gestionnaire de compensation
+2 Applications front :
+- 1 accédée par les établisements bancaires
+- 1 autre par les gestionnaires de la chambre de compensation
 
-API établissement :
+**Application établissement :**
 - Soumission des transactions par le créditeur
 - Confirmation des transactions par le débiteur
 - Récupération des transactions confirmées, en attente de compensation, affichage du solde
 - Historique des paiements
 
-API Gestionnaire
+**Application gestionnaire de la chambre**
 - Edition des règles de compensation (limite de montant, limite de temps pour la confirmation, horaire d'ouverture et de fermeture)
 - Historique des compensations
-- Séléction/Déselection de transaction pour une compensantion donnée
+- Alerte, transaction nécessitant une action manuelle, Séléction/Déselection de transaction pour une compensantion donnée
 
 
 L'application s'appuie sur un ensemble de micro-service ou chaque microservice peut être développé, déployé et évoluer indépendamment :
-**Service de Gestion des Transactions :**
+**Service de Gestion des Transactions : transaction-service**
 - Responsable de la gestion des transactions entrantes et sortantes.
 - Valide et stocke les transactions.
 - Gère les états de transaction (en attente, confirmée, compensée, etc.).
 
-**Service de Règles de Compensation :**
+**Service de Compensation :**
 - Applique des règles de compensation sur les transactions en attente.
 - Décide du moment opportun pour déclencher le processus de compensation.
+- Exécute le processus de compensation
 
 **Service de gestion des établissements**
-- CRUD sur 
+- CRUD sur les établissements débiteur et créditeur de transaction
   
 **Service de paiement**
 - Effectue le traitement financier réel des paiements compensés.
