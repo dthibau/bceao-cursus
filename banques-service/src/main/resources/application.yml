@@ -1,0 +1,17 @@
+api:
+  version: '1.0'
+  name: 'Banque API'
+  description: 'API pour la gestion des établissements bancaires'
+
+spring:
+  datasource:
+    url: jdbc:postgresql:banques
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+
+

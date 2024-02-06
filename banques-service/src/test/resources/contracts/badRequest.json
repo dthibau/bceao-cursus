@@ -1,0 +1,10 @@
+{
+  "nomBanque": "string",
+  "bic": "CMCIFR2",
+  "codeBanque": 0,
+  "numero": 0,
+  "rue": "string",
+  "ville": "string",
+  "codePostal": 0,
+  "pays": "string"
+}
