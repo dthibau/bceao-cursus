@@ -1,0 +1,26 @@
+server:
+  port: 8000
+
+backend:
+  banque-root-uri: http://localhost:8080
+  workflow-root-uri: http://localhost:8081
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: banque
+          uri: ${backend.banque-root-uri}
+          predicates:
+            - Path=/api/banques
+          filters:
+            - RewritePath=/api/(?<segment>.*), /api/1.0/${segment}
+            - AddRequestHeader=X-Request-Header, gateway
+        - id: banque2
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/banques/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /api/1.0/${segment}
+            - AddRequestHeader=X-Request-Header, gateway
+
