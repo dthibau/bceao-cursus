@@ -9,7 +9,7 @@ public class BanqueEvent extends DomainEvent {
         private Banque banque;
 
         public BanqueEvent(DomainEvent domainEvent, Banque banque) {
-            super(domainEvent.id, domainEvent.oldStatus, domainEvent.newStatus);
+            super(banque.getId(), domainEvent.oldStatus, domainEvent.newStatus);
             this.banque = banque;
         }
 
