@@ -29,8 +29,9 @@ public class BanqueService {
     public BanqueDto createBanque(CreateBanqueDto dto) {
         log.info("Creating a new banque");
         Banque banque = Banque.createBanque(dto);
+        DomainEvent event = workflowService.action("BANQUES", "CREATE");
+        banque.setStatus(event.getNewStatus());
         banque = banqueRepository.save(banque);
-        DomainEvent event = workflowService.action(banque.getId(), "CREATE");
         eventService.publishEvent(new BanqueEvent(event, banque));
 
         return new BanqueDto(banque);

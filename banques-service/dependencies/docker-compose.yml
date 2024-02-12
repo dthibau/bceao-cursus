@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  workflow-service:
+    image: dthibau/bceao-worflow-service:1.0
+    container_name: workflow-service
+    ports:
+      - "8081:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://workflow-mongodb:27017/workflow
+    depends_on:
+      - workflow-mongodb
+  workflow-mongodb:
+    image: mongo:latest
+    container_name: workflow-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - bceao-mongo:/data/db
+      - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+volumes:
+    bceao-mongo:
