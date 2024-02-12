@@ -1,0 +1,13 @@
+version: '3.3'
+
+services:
+  workflow-mongodb:
+    image: mongo:latest
+    container_name: workflow-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - bceao-mongo:/data/db
+
+volumes:
+    bceao-mongo:

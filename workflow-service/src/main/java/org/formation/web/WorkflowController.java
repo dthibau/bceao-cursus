@@ -1,5 +1,11 @@
 package org.formation.web;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.formation.domain.Transition;
 import org.formation.domain.Workflow;
 import org.formation.service.WorkflowService;
@@ -24,6 +30,20 @@ public class WorkflowController {
     public Mono<Workflow> create(@RequestBody Workflow workflow) {
         return workflowService.create(workflow);
     }
+    @Operation(summary = "Obtenir la liste des workflow avec exemples")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Liste des workflows",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Workflow.class),
+                            examples = {
+                                    @ExampleObject(name = "example1", value = "\n" +
+                                            "[{\"id\":\"BANQUE\",\"name\":\"Workflow validation établissement\",\"states\":[{\"name\":\"CREATED\"}],\"transitions\":[{\"action\":\"CREATE\",\"sourceState\":\"\",\"targetState\":\"CREATED\"}]}]"),
+                                    @ExampleObject(name = "example2", value = "\n" +
+                                            "[{\"id\":\"TRANSACTION\",\"name\":\"Workflow validation établissement\",\"states\":[{\"name\":\"CREATED\"}],\"transitions\":[{\"action\":\"CREATE\",\"sourceState\":\"\",\"targetState\":\"CREATED\"}]}]")
+                            }
+                    )
+            )
+    })
     @GetMapping
     public Flux<Workflow> findAll() {
         return workflowService.findAll();
