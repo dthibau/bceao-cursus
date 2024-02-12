@@ -9,6 +9,12 @@ db.workflow.insertMany([
    "states": [
      {
        "name": "CREATED"
+     },
+     {
+         "name": "REJECTED"
+     },
+     {
+        "name": "VALIDATED"
      }
    ],
    "transitions": [
@@ -16,6 +22,16 @@ db.workflow.insertMany([
        "action": "CREATE",
        "sourceState": "",
        "targetState": "CREATED"
+     },
+     {
+       "action": "REJECT",
+       "sourceState": "CREATED",
+       "targetState": "REJECTED"
+     },
+     {
+       "action": "VALIDATE",
+       "sourceState": "CREATED",
+       "targetState": "VALIDATED"
      }
    ]
  }

@@ -12,6 +12,9 @@ import org.formation.banquesservice.service.event.BanqueEvent;
 import org.formation.banquesservice.service.event.DomainEvent;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 @Log
@@ -35,5 +38,13 @@ public class BanqueService {
         eventService.publishEvent(new BanqueEvent(event, banque));
 
         return new BanqueDto(banque);
+    }
+
+    public List<BanqueDto> getBanques() {
+        return banqueRepository.findAll().stream().map(b -> new BanqueDto(b)).toList();
+    }
+    public BanqueDto getBanque(Long id) {
+        Banque b =  banqueRepository.findById(id).orElseThrow();
+        return new BanqueDto(b);
     }
 }

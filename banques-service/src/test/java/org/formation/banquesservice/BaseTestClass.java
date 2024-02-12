@@ -11,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
+import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -28,6 +29,9 @@ public class BaseTestClass {
     @ServiceConnection
     static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:16.1-alpine");
 
+    @Container
+    @ServiceConnection
+    static KafkaContainer kafkaContainer = new KafkaContainer("5.5.0");
     @BeforeEach
     public void setup() {
         StandaloneMockMvcBuilder standaloneMockMvcBuilder
