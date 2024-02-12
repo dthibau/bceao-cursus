@@ -41,4 +41,8 @@ public class WorkflowService {
     public Flux<Workflow> findAll() {
         return processRepository.findAll();
     }
+
+    public Mono<Void> deleteById(String id) {
+        return processRepository.deleteById(id);
+    }
 }

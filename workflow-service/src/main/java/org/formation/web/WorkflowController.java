@@ -48,15 +48,23 @@ public class WorkflowController {
     public Flux<Workflow> findAll() {
         return workflowService.findAll();
     }
-    @GetMapping("/{processId}")
-    public Mono<List<Transition>> getAvailableTransitions(@PathVariable String processId, @RequestParam(required = false) String state) {
+    @GetMapping("/{processId}/actions")
+    public Mono<List<String>> getAvailableActions(@PathVariable String processId, @RequestParam(required = false) String state) {
         if ( state == null )
             state = "";
-        return workflowService.findAvailableTransitions(processId, state);
+        return workflowService.findAvailableTransitions(processId, state).map(l -> {
+            return l.stream().map(t -> t.getAction()).toList();
+        });
     }
 
     @PostMapping("/{processId}")
     public Mono<DomainEvent> action(@PathVariable String processId, @RequestParam String action) {
         return workflowService.action(processId, action);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Mono<Void> delete(@PathVariable String id) {
+        return workflowService.deleteById(id);
     }
 }
