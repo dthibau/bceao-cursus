@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.assertj.core.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = {"backend.banque-root-uri=http://localhost:${wiremock.server.port}",
                 "backend.workflow-root-uri=http://localhost:${wiremock.server.port}"})

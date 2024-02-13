@@ -17,7 +17,7 @@ spring:
             - RewritePath=/api/(?<segment>.*), /api/1.0/${segment}
             - AddRequestHeader=X-Request-Header, gateway
         - id: banque2
-          uri: http://localhost:8080
+          uri: ${backend.banque-root-uri}
           predicates:
             - Path=/api/banques/**
           filters:
