@@ -3,8 +3,10 @@ package org.formation.banquesservice.dto;
 import lombok.Data;
 import org.formation.banquesservice.domain.Adresse;
 import org.formation.banquesservice.domain.Banque;
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 
 @Data
+@RegisterReflectionForBinding
 public class BanqueDto {
     private Long id;
     private String nomBanque;
