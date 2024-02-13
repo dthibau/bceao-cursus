@@ -30,4 +30,8 @@ public class BanqueController {
     public BanqueDto createBanque(@RequestBody @Valid CreateBanqueDto dto) {
         return banqueService.createBanque(dto);// Call workflow service
     }
+    @PutMapping("/{id}")
+    public BanqueDto updateBanque(@PathVariable Long id, @RequestBody @Valid BanqueDto dto, @RequestParam String action) {
+        return banqueService.updateBanque(id,dto,action);// Call workflow service
+    }
 }

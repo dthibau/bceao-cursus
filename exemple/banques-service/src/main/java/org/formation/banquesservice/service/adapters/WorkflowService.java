@@ -9,16 +9,19 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class WorkflowService {
 
-    RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
-    private final String ACTION_URL = "/workflows/{id}?action={action}";
+    private final WorkflowConfig config;
+
+    public static String ACTION_URL = "/workflows/{id}?action={action}";
 
     public WorkflowService(RestTemplateBuilder restTemplateBuilder, WorkflowConfig config) {
         this.restTemplate = restTemplateBuilder.rootUri(config.url).build();
+        this.config = config;
     }
 
-    public DomainEvent action(String id, String action) {
-        return this.restTemplate.postForObject(ACTION_URL, null, DomainEvent.class, id, action);
+    public DomainEvent action(String action) {
+        return this.restTemplate.postForObject(ACTION_URL, null, DomainEvent.class, config.getWorkflowId(), action);
 
     }
 }

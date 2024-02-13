@@ -24,7 +24,8 @@ kafka:
   domain-topic: banque-domain
 
 workflow-service:
-    url: http://localhost:8081
+  url: http://localhost:8081
+  workflow-id: 'BANQUES'
 
 
 

@@ -32,7 +32,19 @@ public class BanqueService {
     public BanqueDto createBanque(CreateBanqueDto dto) {
         log.info("Creating a new banque");
         Banque banque = Banque.createBanque(dto);
-        DomainEvent event = workflowService.action("BANQUES", "CREATE");
+        DomainEvent event = workflowService.action("CREATE");
+        banque.setStatus(event.getNewStatus());
+        banque = banqueRepository.save(banque);
+        eventService.publishEvent(new BanqueEvent(event, banque));
+
+        return new BanqueDto(banque);
+    }
+
+    public BanqueDto updateBanque(Long id, BanqueDto dto, String action) {
+        log.info("Updating a new banque");
+        Banque banque = banqueRepository.findById(id).orElseThrow();
+        banque.updateBanque(dto);
+        DomainEvent event = workflowService.action(action);
         banque.setStatus(event.getNewStatus());
         banque = banqueRepository.save(banque);
         eventService.publishEvent(new BanqueEvent(event, banque));

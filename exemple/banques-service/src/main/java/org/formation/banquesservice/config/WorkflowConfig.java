@@ -1,5 +1,6 @@
 package org.formation.banquesservice.config;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
@@ -16,4 +17,6 @@ public class WorkflowConfig {
     @URL
     public String url;
 
+    @NotEmpty
+    public String workflowId;
 }

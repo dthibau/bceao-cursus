@@ -2,6 +2,7 @@ package org.formation.banquesservice.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.formation.banquesservice.dto.BanqueDto;
 import org.formation.banquesservice.dto.CreateBanqueDto;
 
 @Entity
@@ -37,5 +38,12 @@ public class Banque {
         banque.status = "CREATED";
 
         return banque;
+    }
+
+    public void updateBanque(BanqueDto dto) {
+        this.nomBanque = dto.getNomBanque();
+        this.bic = dto.getBic();
+        this.codeBanque = dto.getCodeBanque();
+        this.adresse = dto.getAdresse();
     }
 }
