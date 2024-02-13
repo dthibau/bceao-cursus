@@ -2,7 +2,7 @@ package org.formation.service;
 
 import org.formation.domain.Transition;
 import org.formation.domain.Workflow;
-import org.formation.domain.repository.ProcessRepository;
+import org.formation.domain.repository.WorkflowRepository;
 import org.formation.service.event.DomainEvent;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -12,8 +12,8 @@ import java.util.List;
 
 @Service
 public class WorkflowService {
-    final ProcessRepository processRepository;
-    public WorkflowService(ProcessRepository processRepository) {
+    final WorkflowRepository processRepository;
+    public WorkflowService(WorkflowRepository processRepository) {
         this.processRepository = processRepository;
     }
     public Mono<DomainEvent> action(String idProcess, String action) {
