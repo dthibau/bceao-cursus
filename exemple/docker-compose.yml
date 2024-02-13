@@ -1,0 +1,91 @@
+version: '3.3'
+
+services:
+  gateway:
+    image: dthibau/bceao-gateway:1.0
+    environment:
+      - BACKEND_BANQUE-ROOT-URI=http://banques-service:8080
+      - BACKEND_WORKFLOW-ROOT-URI=http://workflow-service:8081
+    ports:
+      - "8000:8000"
+  workflow-service:
+    image: dthibau/bceao-workflow-service:1.0
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://workflow-mongodb:27017/workflow
+    depends_on:
+      - workflow-mongodb
+
+  workflow-mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - workflow-mongo:/data/db
+      - ./banques-service/dependencies/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+
+  banques-service:
+    image: dthibau/bceao-banques-service:1.0
+#    image: dthibau/bceao-banques-service-natif:1.0
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://banques-postgres:5432/banques
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9094
+      - WORKFLOW-SERVICE_URL=http://workflow-service:8081
+    depends_on:
+      - banques-postgres
+    restart: on-failure
+
+  banques-postgres:
+    image: 'postgres:16.1-alpine'
+    environment:
+      - 'POSTGRES_DB=banques'
+      - 'POSTGRES_PASSWORD=postgres'
+      - 'POSTGRES_USER=postgres'
+    ports:
+      - '5432:5432'
+
+  kafka:
+    image: docker.io/bitnami/kafka:3.4
+    ports:
+      - "9092:9092"
+      - "9094:9094"
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - KAFKA_ENABLE_KRAFT=yes
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092,EXTERNAL://kafka:9094
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@127.0.0.1:9093
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=true
+      - BITNAMI_DEBUG=yes
+      - KAFKA_CFG_NUM_PARTITIONS=2
+
+
+  redpanda:
+    image : docker.redpanda.com/redpandadata/console:latest
+    ports:
+      - 9090:8080
+    restart: unless-stopped
+    depends_on:
+      - kafka
+    environment:
+      - KAFKA_BROKERS=kafka:9094
+
+
+
+volumes:
+  workflow-mongo:
+  kafka_data:
+    driver: local
