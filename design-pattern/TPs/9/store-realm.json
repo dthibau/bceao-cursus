@@ -1,0 +1,141 @@
+{
+    "realm": "store",
+    "enabled": true,
+    "users": [
+        {
+            "username": "alice",
+            "enabled": true,
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "secret"
+                }
+            ],
+            "realmRoles": [
+                "MANAGER"
+            ]
+        },
+        {
+            "username": "bob",
+            "enabled": true,
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "secret"
+                }
+            ],
+            "realmRoles": [
+                "CLIENT"
+            ]
+        }
+    ],
+    "roles": {
+        "realm": [
+            {
+                "name": "MANAGER",
+                "description": "Manager privileges"
+            },
+            {
+                "name": "CLIENT",
+                "description": "Client privileges"
+            }
+        ]
+    },
+    "defaultRoles": [
+        "CLIENT"
+    ],
+    "clients": [
+        {
+            "clientId": "frontend",
+            "enabled": true,
+            "publicClient": true,
+            "redirectUris": [
+                "*"
+            ],
+            "webOrigins": [
+                "*"
+            ],
+            "standardFlowEnabled": true,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": true,
+            "serviceAccountsEnabled": false,
+            "defaultClientScopes": [
+                "web-origins",
+                "acr",
+                "profile",
+                "roles",
+                "microprofile-jwt",
+                "email"
+              ]
+        },
+        {
+            "clientId": "delivery",
+            "enabled": true,
+            "publicClient": false,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "redirectUris": [],
+            "webOrigins": [],
+            "standardFlowEnabled": true,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "protocol": "openid-connect",
+            "attributes": {
+                "oidc.ciba.grant.enabled": "false",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "client.secret.creation.time": "1708211793",
+                "backchannel.logout.session.required": "true",
+                "backchannel.logout.revoke.offline.tokens": "false"
+            },
+            "authenticationFlowBindingOverrides": {},
+            "fullScopeAllowed": true
+        },
+        {
+            "clientId": "product",
+            "enabled": true,
+            "publicClient": false,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "redirectUris": [],
+            "webOrigins": [],
+            "protocol": "openid-connect",
+            "standardFlowEnabled": true,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "attributes": {
+                "oidc.ciba.grant.enabled": "false",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "client.secret.creation.time": "1708211793",
+                "backchannel.logout.session.required": "true",
+                "backchannel.logout.revoke.offline.tokens": "false"
+            },
+            "authenticationFlowBindingOverrides": {},
+            "fullScopeAllowed": true
+        },
+        {
+            "clientId": "order",
+            "enabled": true,
+            "publicClient": false,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "redirectUris": [],
+            "webOrigins": [],
+            "standardFlowEnabled": true,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "protocol": "openid-connect",
+            "attributes": {
+                "oidc.ciba.grant.enabled": "false",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "client.secret.creation.time": "1708211793",
+                "backchannel.logout.session.required": "true",
+                "backchannel.logout.revoke.offline.tokens": "false"
+            },
+            "authenticationFlowBindingOverrides": {},
+            "fullScopeAllowed": true
+        }
+    ]
+}
