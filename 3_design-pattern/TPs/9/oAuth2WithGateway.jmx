@@ -518,8 +518,7 @@
                 </elementProp>
               </collectionProp>
             </elementProp>
-            <stringProp name="HTTPSampler.port">8082</stringProp>
-            <stringProp name="HTTPSampler.path">/api/orders</stringProp>
+            <stringProp name="HTTPSampler.path">/orders</stringProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
