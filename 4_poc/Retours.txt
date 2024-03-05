@@ -1,0 +1,28 @@
+Tout d'abord, merci pour la qualité de ce document qui donne une bonne base à ma prochaine interventionJe l'ai lu attentivement et je vous livre en vrac mes retours qui pourront éventuellement prolonger votre réflexion.
+
+Modèle de données 
+- Il serait intéressant de définir les sous-domaines, c'est à dire quelles tables sont gérées par quel micro-service
+- Quel serait les documents gérés par les support NoSQL
+
+Décomposition : 
+- J'ai un doute sur le micro-service de paramétrage : Les micro-services utilisant ces paramètres risquent d'être trop dépendant de celui-ci. Il me semble que chaque micro-service devrait géré son paramétrage 
+- Quel est le rôle de la Gateway ? Est que la gateway n'est pas tout simplement SICA (JMIX) ? 
+
+APIs :
+- On pourrait compléter par la description des messages Kafka échangés. Quels messages sont produits/consommés ?
+- Est qu'une opération de l'API d'un micro-service nécessite des interactions avec les autres micro-services ? 
+
+Application SICA
+- Qui sont les utilisateurs de SICA (Agent avec quel rôle, Banques ?)
+- Quels sont les User Story que l'on implémentera durant notre temps court de 6 jours ?
+
+
+En terme d'organisation, il nous faudrait :
+- Un compte organisation sur gitlab.com
+- Un projet gitlab par projet
+- Je serai le mainteneur et reviewer sur tous les projets et l'équipe BCEAO auront le profil développeur
+- Il y aura également un dépôt pour la configuration centralisée dont je serai également mainteneur
+- Je m'occuperai également des services de support comme Keycloak, Kafka, Eureka et le serveur de config qui seront fournis à toutes les équipes sous forme de docker-compose
+
+N'hésitez pas à continuer à échanger avec moi afin que nous puissions démarrer dans les meilleures conditions le 14 mars.
+Bien cordialement

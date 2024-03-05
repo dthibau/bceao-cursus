@@ -1,5 +1,0 @@
-Agent-service (Métier)
-Banque-service (Métier)
-Paiement (Tek)
-
-Compensation (Gateway)
